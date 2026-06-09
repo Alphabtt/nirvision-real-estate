@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Search, X, ArrowRight } from 'lucide-react';
+import { Search, X, ArrowRight, ChevronDown, UserCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import InvestorDashboard from './InvestorDashboard';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isDashboardOpen, setIsDashboardOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,9 +22,9 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent background scrolling when menu is open
+  // Prevent background scrolling when menu or dashboard is open
   useEffect(() => {
-    if (isMenuOpen || isSearchOpen) {
+    if (isMenuOpen || isSearchOpen || isDashboardOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -30,7 +32,7 @@ const Navbar = () => {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isSearchOpen, isDashboardOpen]);
 
   const navItems = [
     { name: 'Home', id: 'home' },
@@ -66,6 +68,10 @@ const Navbar = () => {
             <button className="search-btn" aria-label="Open search" onClick={() => setIsSearchOpen(true)}>
               <Search size={20} />
               <span className="search-label">Search</span>
+            </button>
+            <button className="search-btn" aria-label="Sign In" onClick={() => setIsDashboardOpen(true)} style={{ marginLeft: '10px' }}>
+              <UserCircle size={20} />
+              <span className="search-label" style={{ whiteSpace: 'nowrap' }}>Sign in/ Signup</span>
             </button>
             <a href="#contact" className="nav-cta">Contact Us</a>
           </div>
@@ -178,22 +184,82 @@ const Navbar = () => {
               animate={{ y: 0, opacity: 1, transition: { delay: 0.1, duration: 0.4, ease: "easeOut" } }}
               exit={{ y: -20, opacity: 0, transition: { duration: 0.2 } }}
             >
-              <form onSubmit={(e) => { e.preventDefault(); alert("Search submitted!"); setIsSearchOpen(false); }}>
-                <input 
-                  type="text" 
-                  className="search-input" 
-                  placeholder="Type to search..." 
-                  autoFocus
-                />
-                <button type="submit" className="search-submit" aria-label="Submit search">
-                  <ArrowRight size={32} strokeWidth={1} />
+              <form className="search-form-advanced" onSubmit={(e) => { e.preventDefault(); alert("Search submitted!"); setIsSearchOpen(false); }}>
+                <div className="search-main-input-group">
+                  <Search className="search-icon-large" size={28} strokeWidth={1.5} />
+                  <input 
+                    type="text" 
+                    className="search-input-main" 
+                    placeholder="Search by project name..." 
+                    autoFocus
+                  />
+                </div>
+
+                <div className="search-filters">
+                  <div className="filter-group">
+                    <label>PROPERTY TYPE</label>
+                    <div className="select-wrapper">
+                      <select>
+                        <option>All types</option>
+                        <option>Residential</option>
+                        <option>Commercial</option>
+                        <option>Condominium</option>
+                      </select>
+                      <ChevronDown className="select-icon" size={16} />
+                    </div>
+                  </div>
+                  
+                  <div className="filter-group">
+                    <label>LOCATION</label>
+                    <div className="select-wrapper">
+                      <select>
+                        <option>All locations</option>
+                        <option>Gulshan</option>
+                        <option>Banani</option>
+                        <option>Dhanmondi</option>
+                      </select>
+                      <ChevronDown className="select-icon" size={16} />
+                    </div>
+                  </div>
+
+                  <div className="filter-group">
+                    <label>UNIT SIZE</label>
+                    <div className="select-wrapper">
+                      <select>
+                        <option>All sizes</option>
+                        <option>Under 2000 sq ft</option>
+                        <option>2000 - 4000 sq ft</option>
+                        <option>Over 4000 sq ft</option>
+                      </select>
+                      <ChevronDown className="select-icon" size={16} />
+                    </div>
+                  </div>
+
+                  <div className="filter-group">
+                    <label>STATUS</label>
+                    <div className="select-wrapper">
+                      <select>
+                        <option>All</option>
+                        <option>Ongoing</option>
+                        <option>Completed</option>
+                        <option>Upcoming</option>
+                      </select>
+                      <ChevronDown className="select-icon" size={16} />
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit" className="search-btn-advanced">
+                  SEARCH PROPERTIES
                 </button>
               </form>
-              <div className="search-hint">Press Enter to search</div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Investor Dashboard Overlay */}
+      <InvestorDashboard isOpen={isDashboardOpen} onClose={() => setIsDashboardOpen(false)} />
     </>
   );
 };

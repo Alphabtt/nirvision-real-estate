@@ -7,6 +7,7 @@ import Stats from './components/Stats';
 import Excellence from './components/Excellence';
 import Testimonials from './components/Testimonials';
 import Newsletter from './components/Newsletter';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FloatingActions from './components/FloatingActions';
 import Preloader from './components/Preloader';
@@ -36,6 +37,7 @@ function App() {
             <Stats />
             <Excellence />
             <Testimonials />
+            <Contact />
             <Newsletter />
           </main>
           <Footer />
