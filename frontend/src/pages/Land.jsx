@@ -11,7 +11,7 @@ const Land = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch('http://localhost:5000/api/properties?type=land')
+    fetch('https://nirvision-backend.onrender.com/api/properties?type=land')
       .then(res => res.json())
       .then(data => setLandData(data && data.length > 0 ? data : fallbackLand))
       .catch(err => {

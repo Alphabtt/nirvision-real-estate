@@ -12,7 +12,7 @@ const Flats = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch('http://localhost:5000/api/properties?type=flats')
+    fetch('https://nirvision-backend.onrender.com/api/properties?type=flats')
       .then(res => res.json())
       .then(data => setFlatsData(data && data.length > 0 ? data : fallbackFlats))
       .catch(err => {

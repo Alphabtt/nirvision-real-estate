@@ -25,7 +25,7 @@ export const ClientProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:5000/api/user/login', {
+      const response = await fetch('https://nirvision-backend.onrender.com/api/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -48,7 +48,7 @@ export const ClientProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
-      const response = await fetch('http://localhost:5000/api/user/register', {
+      const response = await fetch('https://nirvision-backend.onrender.com/api/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password })
@@ -85,7 +85,7 @@ export const ClientProvider = ({ children }) => {
       if (avatarFile) {
         const formData = new FormData();
         formData.append('image', avatarFile);
-        const uploadRes = await fetch('http://localhost:5000/api/upload', {
+        const uploadRes = await fetch('https://nirvision-backend.onrender.com/api/upload', {
           method: 'POST',
           headers: { 'Authorization': `Bearer ${token}` },
           body: formData
@@ -96,7 +96,7 @@ export const ClientProvider = ({ children }) => {
       }
 
       // Then update profile
-      const res = await fetch('http://localhost:5000/api/user/profile', {
+      const res = await fetch('https://nirvision-backend.onrender.com/api/user/profile', {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ export const ClientProvider = ({ children }) => {
       formData.append('title', title);
       formData.append('document', file);
       
-      const res = await fetch('http://localhost:5000/api/vault', {
+      const res = await fetch('https://nirvision-backend.onrender.com/api/vault', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formData
@@ -138,7 +138,7 @@ export const ClientProvider = ({ children }) => {
   const fetchDocuments = async () => {
     try {
       const token = localStorage.getItem('nv_token');
-      const res = await fetch('http://localhost:5000/api/vault', {
+      const res = await fetch('https://nirvision-backend.onrender.com/api/vault', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!res.ok) throw new Error('Failed to fetch documents');
@@ -152,7 +152,7 @@ export const ClientProvider = ({ children }) => {
   const changePassword = async (oldPassword, newPassword) => {
     try {
       const token = localStorage.getItem('nv_token');
-      const res = await fetch('http://localhost:5000/api/user/password', {
+      const res = await fetch('https://nirvision-backend.onrender.com/api/user/password', {
         method: 'PUT',
         headers: { 
           'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ export const ClientProvider = ({ children }) => {
       if (frontFile) formData.append('nidFront', frontFile);
       if (backFile) formData.append('nidBack', backFile);
 
-      const res = await fetch('http://localhost:5000/api/user/kyc', {
+      const res = await fetch('https://nirvision-backend.onrender.com/api/user/kyc', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formData

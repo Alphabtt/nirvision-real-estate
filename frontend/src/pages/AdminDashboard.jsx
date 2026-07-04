@@ -31,9 +31,9 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     try {
       const [propRes, userRes, contactRes] = await Promise.all([
-        fetch('http://localhost:5000/api/properties'),
-        fetch('http://localhost:5000/api/admin/users', { headers: { 'Authorization': `Bearer ${token}` } }),
-        fetch('http://localhost:5000/api/admin/contacts', { headers: { 'Authorization': `Bearer ${token}` } })
+        fetch('https://nirvision-backend.onrender.com/api/properties'),
+        fetch('https://nirvision-backend.onrender.com/api/admin/users', { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch('https://nirvision-backend.onrender.com/api/admin/contacts', { headers: { 'Authorization': `Bearer ${token}` } })
       ]);
       if (propRes.ok) setProperties(await propRes.json());
       if (userRes.ok) setUsers(await userRes.json());
@@ -51,7 +51,7 @@ const AdminDashboard = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this property?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/properties/${id}`, {
+      const res = await fetch(`https://nirvision-backend.onrender.com/api/properties/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -97,7 +97,7 @@ const AdminDashboard = () => {
     const formData = new FormData();
     formData.append('image', imageFile);
 
-    const res = await fetch('http://localhost:5000/api/upload', {
+    const res = await fetch('https://nirvision-backend.onrender.com/api/upload', {
       method: 'POST',
       headers: { 'Authorization': `Bearer ${token}` },
       body: formData
@@ -105,7 +105,7 @@ const AdminDashboard = () => {
     
     if (res.ok) {
       const data = await res.json();
-      return data.imageUrl; // Returns http://localhost:5000/uploads/...
+      return data.imageUrl; // Returns https://nirvision-backend.onrender.com/uploads/...
     }
     return existingImage;
   };
@@ -117,8 +117,8 @@ const AdminDashboard = () => {
 
     const method = editingId ? 'PUT' : 'POST';
     const url = editingId 
-      ? `http://localhost:5000/api/properties/${editingId}`
-      : `http://localhost:5000/api/properties`;
+      ? `https://nirvision-backend.onrender.com/api/properties/${editingId}`
+      : `https://nirvision-backend.onrender.com/api/properties`;
 
     try {
       const res = await fetch(url, {

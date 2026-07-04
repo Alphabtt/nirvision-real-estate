@@ -11,7 +11,7 @@ const Rent = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch('http://localhost:5000/api/properties?type=rent')
+    fetch('https://nirvision-backend.onrender.com/api/properties?type=rent')
       .then(res => res.json())
       .then(data => setRentData(data && data.length > 0 ? data : fallbackRent))
       .catch(err => {
