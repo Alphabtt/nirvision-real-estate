@@ -1,0 +1,138 @@
+/* Properties Hub Page Styles */
+.properties-hub {
+  background: #000;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Section */
+.properties-hub-header {
+  padding: 150px 40px 60px;
+  text-align: center;
+  background: #111; /* Dark enough for the white navbar */
+}
+
+.properties-hub-title {
+  font-family: var(--ff-heading);
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 300;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.properties-hub-subtitle {
+  font-size: 18px;
+  color: #a7a7a7;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Grid Layout */
+.properties-hub-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  flex: 1; /* Take remaining height */
+  min-height: 60vh;
+}
+
+@media (min-width: 1024px) {
+  .properties-hub-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Category Cards */
+.properties-hub-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  overflow: hidden;
+  min-height: 400px;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 1024px) {
+  .properties-hub-card {
+    border-bottom: none;
+  }
+  .properties-hub-card:last-child {
+    border-right: none;
+  }
+}
+
+.properties-hub-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.properties-hub-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.properties-hub-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 2;
+  transition: background 0.5s ease;
+}
+
+.properties-hub-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.properties-hub-name {
+  font-family: var(--ff-heading);
+  font-size: clamp(36px, 4vw, 56px);
+  color: #fff;
+  font-weight: 300;
+  margin-bottom: 20px;
+  transition: transform 0.4s ease;
+}
+
+.properties-hub-arrow {
+  color: #D84C7B;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Hover States */
+.properties-hub-card:hover .properties-hub-bg {
+  transform: scale(1.08);
+}
+
+.properties-hub-card:hover .properties-hub-overlay {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.properties-hub-card:hover .properties-hub-name {
+  transform: translateY(-10px);
+}
+
+.properties-hub-card:hover .properties-hub-arrow {
+  opacity: 1;
+  transform: translateY(0);
+}

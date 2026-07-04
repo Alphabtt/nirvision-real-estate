@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Search, X, ArrowRight, ChevronDown, UserCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 import InvestorDashboard from './InvestorDashboard';
 
 const Navbar = () => {
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
+  const [activeSubmenu, setActiveSubmenu] = useState(null);
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+    setTimeout(() => setActiveSubmenu(null), 400);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,18 +42,31 @@ const Navbar = () => {
     };
   }, [isMenuOpen, isSearchOpen, isDashboardOpen]);
 
-  const navItems = [
-    { name: 'Home', id: 'home' },
-    { name: 'About Us', id: 'about' },
-    { name: 'Properties', id: 'properties' },
-    { name: 'Excellence', id: 'excellence' },
-    { name: 'Testimonials', id: 'testimonials' },
-    { name: 'Contact', id: 'contact' }
+  const primaryNavItems = [
+    { name: 'Home', id: '/' },
+    { name: 'Properties', id: '/properties', hasChevron: true },
+    { name: 'The Brand', id: '/about' }
   ];
+
+  const secondaryNavItems = [
+    { name: 'Interior Design', id: '/interior-design' },
+    { name: 'Facility Maintenance', id: '/facility-maintenance' },
+    { name: 'News & Events', id: '/news-events' },
+    { name: 'Career', id: '/career' },
+    { name: 'Contact', id: '/contact' }
+  ];
+
+  const propertiesLinks = [
+    { name: 'Flats', id: '/properties/flats' },
+    { name: 'Land', id: '/properties/land' },
+    { name: 'Rent', id: '/properties/rent' }
+  ];
+
+  const isDarkBackground = location.pathname !== '/' || isScrolled;
 
   return (
     <>
-      <header className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+      <header className={`navbar ${isDarkBackground ? 'scrolled' : ''}`}>
         <nav className="nav-container">
           <div className="nav-left">
             <button 
@@ -59,10 +80,10 @@ const Navbar = () => {
             <span className="menu-label">Menu</span>
           </div>
 
-          <a href="#home" className="nav-logo" aria-label="NirVision Home">
+          <Link to="/" className="nav-logo" aria-label="NirVision Home">
             <span className="logo-mark">NV</span>
             <span className="logo-text">NirVision</span>
-          </a>
+          </Link>
 
           <div className="nav-right">
             <button className="search-btn" aria-label="Open search" onClick={() => setIsSearchOpen(true)}>
@@ -73,7 +94,7 @@ const Navbar = () => {
               <UserCircle size={20} />
               <span className="search-label" style={{ whiteSpace: 'nowrap' }}>Sign in/ Signup</span>
             </button>
-            <a href="#contact" className="nav-cta">Contact Us</a>
+            <Link to="/contact" className="nav-cta">Contact Us</Link>
           </div>
         </nav>
       </header>
@@ -98,7 +119,7 @@ const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { duration: 0.4 } }}
               exit={{ opacity: 0, transition: { duration: 0.4, delay: 0.2 } }}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={closeMenu}
             />
 
             {/* Menu Panel */}
@@ -111,45 +132,118 @@ const Navbar = () => {
             >
               <button 
                 className="menu-close" 
-                onClick={() => setIsMenuOpen(false)}
+                onClick={closeMenu}
                 aria-label="Close menu"
                 style={{ transition: 'none' }}
               >
                 <X size={40} strokeWidth={1} />
               </button>
               
-              <ul className="mobile-nav-links">
-                {navItems.map((item, i) => (
-                  <motion.li 
-                    key={item.id}
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0, transition: { delay: 0.2 + (i * 0.08), ease: "easeOut" } }}
-                    exit={{ opacity: 0, x: -20, transition: { delay: (navItems.length - i) * 0.04, duration: 0.2 } }}
+              <AnimatePresence mode="wait">
+                {!activeSubmenu ? (
+                  <motion.div
+                    key="main-menu"
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -20, opacity: 0, transition: { duration: 0.2 } }}
                   >
-                    <a 
-                      href={`#${item.id}`} 
-                      className="mobile-link" 
-                      onClick={() => setIsMenuOpen(false)}
-                      style={{ transition: 'color 0.3s ease' }}
+                    <ul className="mobile-nav-links primary-links">
+                      {primaryNavItems.map((item, i) => (
+                        <motion.li 
+                          key={item.id}
+                          initial={{ opacity: 0, x: -30 }}
+                          animate={{ opacity: 1, x: 0, transition: { delay: 0.1 + (i * 0.08), ease: "easeOut" } }}
+                        >
+                          {item.hasChevron ? (
+                            <button 
+                              className="mobile-link" 
+                              style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', padding: '4px 0', fontFamily: 'inherit' }}
+                              onClick={() => setActiveSubmenu(item.id === '/properties' ? 'properties' : null)}
+                            >
+                              {item.name}
+                              <span className="menu-chevron">&gt;</span>
+                            </button>
+                          ) : (
+                            <Link 
+                              to={item.id} 
+                              className="mobile-link" 
+                              onClick={closeMenu}
+                            >
+                              {item.name}
+                            </Link>
+                          )}
+                        </motion.li>
+                      ))}
+                    </ul>
+                    
+                    <div className="mobile-menu-divider" />
+
+                    <ul className="mobile-nav-links secondary-links">
+                      {secondaryNavItems.map((item, i) => (
+                        <motion.li 
+                          key={item.id}
+                          initial={{ opacity: 0, x: -30 }}
+                          animate={{ opacity: 1, x: 0, transition: { delay: 0.3 + (i * 0.08), ease: "easeOut" } }}
+                        >
+                          <Link 
+                            to={item.id} 
+                            className="mobile-link secondary-link" 
+                            onClick={closeMenu}
+                          >
+                            {item.name}
+                          </Link>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="sub-menu"
+                    initial={{ x: 20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: 20, opacity: 0, transition: { duration: 0.2 } }}
+                    style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop: '-40px' }}
+                  >
+                    <button 
+                      onClick={() => setActiveSubmenu(null)} 
+                      className="back-button"
                     >
-                      {item.name}
-                    </a>
-                  </motion.li>
-                ))}
-              </ul>
+                      &lt; BACK
+                    </button>
+                    <ul className="mobile-nav-links primary-links">
+                      {activeSubmenu === 'properties' && propertiesLinks.map((item, i) => (
+                        <motion.li 
+                          key={item.id}
+                          initial={{ opacity: 0, x: 30 }}
+                          animate={{ opacity: 1, x: 0, transition: { delay: 0.1 + (i * 0.08), ease: "easeOut" } }}
+                        >
+                          <Link 
+                            to={item.id} 
+                            className="mobile-link submenu-link" 
+                            onClick={closeMenu}
+                          >
+                            {item.name}
+                          </Link>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               
               <motion.div 
                 className="mobile-menu-footer"
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0, transition: { delay: 0.7, ease: "easeOut" } }}
+                animate={{ opacity: 1, y: 0, transition: { delay: 0.8, ease: "easeOut" } }}
                 exit={{ opacity: 0, transition: { duration: 0.2 } }}
               >
-                <p className="mobile-menu-email">info@nirvision.com</p>
-                <div className="mobile-social-links">
-                  <a href="#" aria-label="Facebook">FB</a>
-                  <a href="#" aria-label="Instagram">IG</a>
-                  <a href="#" aria-label="LinkedIn">LN</a>
-                  <a href="#" aria-label="YouTube">YT</a>
+                <div className="mobile-footer-contact">
+                  <span>+880 2 58815305-11</span>
+                  <span className="contact-divider">|</span>
+                  <a href="mailto:sales@navana-realestate.com">sales@navana-realestate.com</a>
+                </div>
+                <div className="mobile-footer-copy">
+                  &copy; 2026 Navana Real Estate
                 </div>
               </motion.div>
             </motion.div>

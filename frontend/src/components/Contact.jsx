@@ -17,10 +17,24 @@ const Contact = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Thank you, ${formData.name}! Your message has been sent to NirVision.`);
-    setFormData({ name: '', email: '', phone: '', size: '', location: '', message: '' });
+    try {
+      const res = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, type: activeTab })
+      });
+      if (res.ok) {
+        alert(`Thank you, ${formData.name}! Your message has been sent to NirVision.`);
+        setFormData({ name: '', email: '', phone: '', size: '', location: '', message: '' });
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Failed to send message.');
+    }
   };
 
   const fadeUp = {

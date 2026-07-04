@@ -1,0 +1,478 @@
+/* Facility Maintenance Page Styles - Premium Redesign */
+.fmd-page {
+  background: #fff;
+  color: #333;
+  font-family: var(--ff-body);
+  overflow-x: hidden;
+}
+
+/* 1. Hero Section - Dark & Elegant */
+.fmd-hero-section {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  padding-top: 80px;
+  background: #000;
+  color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .fmd-hero-section {
+    flex-direction: row;
+    align-items: stretch;
+  }
+}
+
+.fmd-hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 40px;
+  max-width: 800px;
+}
+
+@media (min-width: 1024px) {
+  .fmd-hero-content {
+    padding: 0 10vw;
+  }
+}
+
+.fmd-hero-title {
+  font-family: var(--ff-heading);
+  font-size: clamp(48px, 7vw, 90px);
+  color: #fff;
+  line-height: 1.05;
+  margin-bottom: 40px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.fmd-hero-text-image {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+@media (min-width: 768px) {
+  .fmd-hero-text-image {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.fmd-hero-small-img {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.fmd-hero-desc {
+  font-size: 17px;
+  line-height: 1.8;
+  color: #a7a7a7;
+  font-weight: 300;
+  flex: 1;
+}
+
+.fmd-hero-large-img-container {
+  flex: 1;
+  position: relative;
+  min-height: 50vh;
+}
+
+.fmd-hero-large-img-container img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px 0 0 12px;
+  opacity: 0.9;
+}
+
+.fmd-hero-large-img-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, #000 0%, transparent 20%);
+}
+
+
+/* 2. Stats Section - Glassmorphic Dark */
+.fmd-stats-section {
+  background: #000;
+  padding: 100px 20px;
+  position: relative;
+}
+
+@media (min-width: 1280px) {
+  .fmd-stats-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.fmd-stats-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+}
+
+@media (min-width: 1280px) {
+  .fmd-stats-container {
+    display: block;
+    width: 100%;
+    height: 350px;
+  }
+}
+
+.fmd-stat-card {
+  width: 250px;
+  height: 250px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(145deg, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0) 100%);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.fmd-stat-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(216, 76, 123, 0.5);
+}
+
+@media (min-width: 768px) {
+  .fmd-stat-card {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .fmd-stat-card {
+    position: absolute;
+  }
+  .fmd-stat-card:nth-child(1) {
+    top: -100px;
+    left: 0;
+    z-index: 3;
+  }
+  .fmd-stat-card:nth-child(2) {
+    top: 50px;
+    left: 319px;
+    z-index: 2;
+  }
+  .fmd-stat-card:nth-child(3) {
+    top: -50px;
+    left: 638px;
+    z-index: 1;
+  }
+}
+
+.fmd-stat-number {
+  font-family: var(--ff-heading);
+  font-size: clamp(40px, 5vw, 56px);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 300;
+}
+
+.fmd-stat-number span {
+  color: #D84C7B;
+}
+
+.fmd-stat-label {
+  font-family: var(--ff-body);
+  font-size: 16px;
+  color: #a7a7a7;
+  margin-top: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+
+/* 3. Stacked Services Section - Soft Luxury Cards */
+.fmd-services-section {
+  padding: 150px 0;
+  background: #fafafa;
+}
+
+.fmd-section-title {
+  text-align: center;
+  font-family: var(--ff-heading);
+  font-size: clamp(36px, 6vw, 64px);
+  color: #111;
+  margin-bottom: 120px;
+  font-weight: 300;
+}
+
+.fmd-stacked-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+@media (min-width: 1024px) {
+  .fmd-stacked-container {
+    gap: 0;
+    padding-bottom: 200px;
+  }
+}
+
+.fmd-stack-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.03);
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .fmd-stack-card {
+    flex-direction: row;
+    height: 60vh;
+    min-height: 450px;
+    position: sticky;
+    top: 140px;
+    margin-bottom: 60vh;
+  }
+  .fmd-stack-card:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.fmd-card-img {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .fmd-card-img {
+    width: 50%;
+    height: 100%;
+  }
+}
+
+.fmd-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.fmd-stack-card:hover .fmd-card-img img {
+  transform: scale(1.05);
+}
+
+.fmd-card-content {
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .fmd-card-content {
+    width: 50%;
+    padding: 0 80px;
+  }
+}
+
+.fmd-card-num {
+  font-family: var(--ff-heading);
+  font-size: 18px;
+  color: #D84C7B;
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+}
+
+.fmd-card-title {
+  font-family: var(--ff-heading);
+  font-size: clamp(28px, 4vw, 36px);
+  color: #111;
+  letter-spacing: 0.02em;
+  margin-bottom: 25px;
+  font-weight: 400;
+}
+
+.fmd-card-desc {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #666;
+  font-weight: 300;
+}
+
+
+/* 4. Additional Services Grid - Clean & Minimal */
+.fmd-additional-section {
+  padding: 120px 20px;
+  background: #fff;
+}
+
+.fmd-additional-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+@media (min-width: 1024px) {
+  .fmd-additional-grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 60px;
+    row-gap: 40px;
+  }
+}
+
+.fmd-additional-card {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.fmd-additional-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+  border-color: rgba(0,0,0,0.08);
+}
+
+.fmd-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(216, 76, 123, 0.08);
+  color: #D84C7B;
+}
+
+.fmd-additional-card p {
+  font-family: var(--ff-heading);
+  font-size: 20px;
+  color: #222;
+  font-weight: 300;
+}
+
+
+/* 5. Contact Section - Deep Immersion */
+.fmd-contact-section {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .fmd-contact-section {
+    flex-direction: row;
+    height: 80vh;
+  }
+}
+
+.fmd-contact-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.fmd-contact-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fmd-contact-left {
+  flex: 5;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+}
+
+.fmd-contact-title {
+  font-family: var(--ff-heading);
+  font-size: clamp(48px, 6vw, 72px);
+  color: #fff;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.fmd-contact-title span {
+  display: block;
+  margin-left: 50px;
+  color: #D84C7B;
+}
+
+.fmd-contact-right {
+  flex: 7;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+}
+
+.fmd-contact-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  z-index: 1;
+}
+
+.fmd-contact-info {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+
+.fmd-contact-item {
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 300;
+  margin-bottom: 30px;
+  letter-spacing: 0.05em;
+  line-height: 1.4;
+}
+
+.fmd-contact-item strong {
+  font-weight: 400;
+  margin-right: 20px;
+  color: #a7a7a7;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+}

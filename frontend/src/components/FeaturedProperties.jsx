@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, MapPin } from 'lucide-react';
 
@@ -131,10 +132,10 @@ const FeaturedProperties = () => {
           className="properties-cta"
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
         >
-          <a href="#" className="view-all-btn">
+          <Link to="/properties" className="view-all-btn">
             <span>View All Properties</span>
             <ArrowRight size={18} />
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>
