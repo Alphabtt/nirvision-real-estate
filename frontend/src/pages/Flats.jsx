@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BedDouble, Bath, Square, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { motion } from 'framer-motion';
 import { useClient } from '../context/ClientContext';
 import { flatsData as fallbackFlats } from '../data/flatsData';
 import './Flats.css';
