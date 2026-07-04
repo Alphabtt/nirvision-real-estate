@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Expand, MapPin, Waypoints, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useClient } from '../context/ClientContext';
+import { landData as fallbackLand } from '../data/landData';
 import './Land.css';
 
 const Land = () => {
@@ -12,8 +13,11 @@ const Land = () => {
     window.scrollTo(0, 0);
     fetch('http://localhost:5000/api/properties?type=land')
       .then(res => res.json())
-      .then(data => setLandData(data))
-      .catch(err => console.error('Error fetching land:', err));
+      .then(data => setLandData(data && data.length > 0 ? data : fallbackLand))
+      .catch(err => {
+        console.error('Error fetching land:', err);
+        setLandData(fallbackLand);
+      });
   }, []);
 
   return (

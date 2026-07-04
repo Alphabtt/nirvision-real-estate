@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { BedDouble, Bath, Square, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useClient } from '../context/ClientContext';
+import { flatsData as fallbackFlats } from '../data/flatsData';
 import './Flats.css';
 
 const Flats = () => {
@@ -12,8 +14,11 @@ const Flats = () => {
     window.scrollTo(0, 0);
     fetch('http://localhost:5000/api/properties?type=flats')
       .then(res => res.json())
-      .then(data => setFlatsData(data))
-      .catch(err => console.error('Error fetching flats:', err));
+      .then(data => setFlatsData(data && data.length > 0 ? data : fallbackFlats))
+      .catch(err => {
+        console.error('Error fetching flats, using fallback:', err);
+        setFlatsData(fallbackFlats);
+      });
   }, []);
 
   return (

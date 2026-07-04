@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BedDouble, Bath, Square, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useClient } from '../context/ClientContext';
+import { rentData as fallbackRent } from '../data/rentData';
 import './Rent.css';
 
 const Rent = () => {
@@ -12,8 +13,11 @@ const Rent = () => {
     window.scrollTo(0, 0);
     fetch('http://localhost:5000/api/properties?type=rent')
       .then(res => res.json())
-      .then(data => setRentData(data))
-      .catch(err => console.error('Error fetching rent:', err));
+      .then(data => setRentData(data && data.length > 0 ? data : fallbackRent))
+      .catch(err => {
+        console.error('Error fetching rent:', err);
+        setRentData(fallbackRent);
+      });
   }, []);
 
   return (
